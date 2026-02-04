@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wade Adam | Supplier Dashboard</title>
+<link rel="icon" href="assets/favicon.jpeg">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <img src="assets/2wadeadamlogo.jpeg" class="logo" alt="Wade Adam">
+</header>
+
+<!-- Filters -->
+<section class="filter-bar">
+    <select id="month">
+        <option value="">All Months</option>
+        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+        <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+        <option value="7">Jul</option><option value="8">Aug</option>
+        <option value="9">Sep</option><option value="10">Oct</option>
+        <option value="11">Nov</option><option value="12">Dec</option>
+    </select>
+
+    <select id="year">
+        <option value="">All Years</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+    </select>
+
+    <button onclick="loadDashboard()">Apply</button>
+</section>
+
+<!-- KPIs -->
+<section class="kpis">
+    <div class="kpi-card">
+        Total Spend
+        <span id="totalSpend">—</span>
+    </div>
+    <div class="kpi-card">
+        Total Orders
+        <span id="totalOrders">—</span>
+    </div>
+    <div class="kpi-card">
+        Top Supplier
+        <span id="topSupplier">—</span>
+    </div>
+</section>
+
+<!-- Charts -->
+<section class="charts">
+    <div class="chart-card">
+        <canvas id="spendChart"></canvas>
+    </div>
+    <div class="chart-card">
+        <canvas id="ordersChart"></canvas>
+    </div>
+</section>
+
+<!-- Pipelines -->
+<section class="pipelines">
+    <div class="pipeline-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Supplier</th>
+                    <th></th>
+                    <th>Spend</th>
+                </tr>
+            </thead>
+            <tbody id="spendPipeline"></tbody>
+        </table>
+    </div>
+
+    <div class="pipeline-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Supplier</th>
+                    <th></th>
+                    <th>Orders</th>
+                </tr>
+            </thead>
+            <tbody id="orderPipeline"></tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+let spendChart, ordersChart;
+
+async function loadDashboard() {
+    const month = document.getElementById('month').value;
+    const year  = document.getElementById('year').value;
+
+    const res = await fetch(`fetch.php?month=${month}&year=${year}`);
+    const data = await res.json();
+
+    // KPIs
+    totalSpend.innerText  = data.kpis.totalSpend.toLocaleString();
+    totalOrders.innerText = data.kpis.totalOrders.toLocaleString();
+    topSupplier.innerText = data.kpis.topSupplier || '—';
+
+    const labels = data.top5.map(d => d.name);
+    const spend  = data.top5.map(d => d.total_value);
+    const orders = data.top5.map(d => d.total_orders);
+
+    // Charts
+    spendChart?.destroy();
+    ordersChart?.destroy();
+
+    spendChart = new Chart(document.getElementById('spendChart'), {
+        type: 'doughnut',
+        data: {
+            labels,
+            datasets: [{
+                data: spend,
+                backgroundColor: '#c0d8e9'
+            }]
+        },
+        options: chartOptions()
+    });
+
+    ordersChart = new Chart(document.getElementById('ordersChart'), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                data: orders,
+                backgroundColor: '#c0d8e9'
+            }]
+        },
+        options: chartOptions(false)
+    });
+
+    renderPipeline('spendPipeline', data.top5, 'total_value');
+    renderPipeline('orderPipeline', data.top5, 'total_orders');
+}
+
+function renderPipeline(containerId, data, key) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    const max = Math.max(...data.map(d => d[key]));
+
+    data.forEach((d, i) => {
+        const percent = Math.round((d[key] / max) * 100);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="supplier">${d.name}</td>
+            <td>
+                <div class="pipe">
+                    <div class="pipe-fill"></div>
+                </div>
+            </td>
+            <td class="value">${d[key].toLocaleString()}</td>
+        `;
+
+        container.appendChild(row);
+
+        setTimeout(() => {
+            row.querySelector('.pipe-fill').style.width = percent + '%';
+        }, 150 + i * 120);
+    });
+}
+
+function chartOptions(showLegend = true) {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: showLegend,
+                position: 'bottom'
+            }
+        }
+    };
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>

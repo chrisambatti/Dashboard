@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login | Wade Adam Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Simple login form style */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background: #c0d8e9;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-container .error {
+    color: red;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <img src="assets/2wadeadamlogo.jpeg" alt="Wade Adam">
+    <h2>Login</h2>
+    <p class="error" id="errorMsg"></p>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // hardcoded credentials
+    if(username === 'admin' && password === 'password123') {
+        // store login status in localStorage
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'dashboard.html'; // redirect to your dashboard
+    } else {
+        document.getElementById('errorMsg').innerText = 'Invalid username or password';
+    }
+}
+</script>
+
+</body>
+</html>
