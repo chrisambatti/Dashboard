@@ -27,17 +27,18 @@ A responsive, interactive dashboard for managing supplier data and tracking orde
 
 ---
 
-## 📂 Project Structure
+📂 Project Structure
 wadeadamdb/
 │
-├─ assets/ # Images, logos, icons
-├─ old data/ # Previous project versions
-├─ main/ # Main database files
-├─ dashboard.html # Main dashboard UI
-├─ login.html # Login page
-├─ fetch.php # Fetch and display data from MySQL
-├─ style.css # Styles for the dashboard
-└─ README.md # Project documentation
+├─ assets/           # Images, logos, icons
+├─ old data/         # Previous project versions
+├─ main/             # Main database files
+├─ dashboard.html    # Main dashboard UI
+├─ login.html        # Login page
+├─ fetch.php         # Fetch and display data from MySQL
+├─ style.css         # Styles for the dashboard
+└─ README.md         # Project documentation
+
 
 
 ---
@@ -64,3 +65,32 @@ Run the Dashboard
 Open your browser and navigate to:
 
 http://localhost/wadeadamdb/dashboard.html
+
+
+⚡ Usage
+
+Add new suppliers via MySQL directly.
+
+Visualize supplier orders and rankings in real-time.
+
+Expand the dashboard with custom charts or filters as needed.
+
+🤝 Contributing
+
+Fork the repository
+
+Create a branch: git checkout -b feature/YourFeature
+
+Commit your changes: git commit -m "Add some feature"
+
+Push to the branch: git push origin feature/YourFeature
+
+Open a Pull Request
+
+💬 Contact
+
+Christopher Philip Ambatti
+
+GitHub: chrisambatti
+
+Email: your-email@example.com
