@@ -28,4 +28,39 @@ A responsive, interactive dashboard for managing supplier data and tracking orde
 ---
 
 ## 📂 Project Structure
+wadeadamdb/
+│
+├─ assets/ # Images, logos, icons
+├─ old data/ # Previous project versions
+├─ main/ # Main database files
+├─ dashboard.html # Main dashboard UI
+├─ login.html # Login page
+├─ fetch.php # Fetch and display data from MySQL
+├─ style.css # Styles for the dashboard
+└─ README.md # Project documentation
 
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/chrisambatti/Dashboard.git
+cd Dashboard
+
+## Import mydatabase.sql into your local MySQL server.
+mysql -u root -p < main/mydatabase.sql
+
+Configure PHP
+
+Ensure you have XAMPP/WAMP installed and running.
+
+Place the project folder in the htdocs directory.
+
+Run the Dashboard
+
+Open your browser and navigate to:
+
+http://localhost/wadeadamdb/dashboard.html
