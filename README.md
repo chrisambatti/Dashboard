@@ -39,10 +39,13 @@ wadeadamdb/
 ├─ style.css         # Styles for the dashboard
 └─ README.md         # Project documentation
 
+---
+
 ## 🖼️ Images
 
-- `assets\login.png` → Dashboard login page 
-- `assets\dashboard.png` → Dashboard page  
+- ![Login Page](assets/login.png) → Dashboard login page  
+- ![Dashboard Page](assets/dashboard.png) → Main dashboard page
+
 
 
 ---
