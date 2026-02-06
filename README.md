@@ -54,20 +54,20 @@ cd Dashboard
 ## Import mydatabase.sql into your local MySQL server.
 mysql -u root -p < main/mydatabase.sql
 
-Configure PHP
+## Configure PHP
 
 Ensure you have XAMPP/WAMP installed and running.
 
 Place the project folder in the htdocs directory.
 
-Run the Dashboard
+## Run the Dashboard
 
 Open your browser and navigate to:
 
 http://localhost/wadeadamdb/dashboard.html
 
 
-⚡ Usage
+## ⚡ Usage
 
 Add new suppliers via MySQL directly.
 
@@ -75,7 +75,7 @@ Visualize supplier orders and rankings in real-time.
 
 Expand the dashboard with custom charts or filters as needed.
 
-🤝 Contributing
+## 🤝 Contributing
 
 Fork the repository
 
@@ -87,7 +87,7 @@ Push to the branch: git push origin feature/YourFeature
 
 Open a Pull Request
 
-💬 Contact
+## 💬 Contact
 
 Christopher Philip Ambatti
 
