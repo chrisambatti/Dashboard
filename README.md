@@ -41,13 +41,8 @@ wadeadamdb/
 
 ## 🖼️ Images
 
-All images, logos, and icons used in the dashboard are stored in the `assets/` folder.  
-You can replace or add images as needed to customize the interface.  
-
-Example usage:
-
-- `assets/logo.png` → Dashboard header logo  
-- `assets/icons/` → Icons for charts, buttons, and navigation  
+- `assets\login.png` → Dashboard login page 
+- `assets\dashboard.png` → Dashboard page  
 
 
 ---
