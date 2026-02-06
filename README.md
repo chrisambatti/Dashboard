@@ -43,8 +43,8 @@ wadeadamdb/
 
 ## 🖼️ Images
 
-- ![Login Page](assets/login.png) → Dashboard login page  
-- ![Dashboard Page](assets/dashboard.png) → Main dashboard page
+- ![Login Page](assets/login.png) 
+- ![Dashboard Page](assets/dashboard.png) 
 
 
 
