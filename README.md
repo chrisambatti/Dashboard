@@ -44,7 +44,8 @@ wadeadamdb/
 ## 🖼️ Images
 
 - ![Login Page](assets/login.png) 
-- ![Dashboard Page](assets/dashboard.png) 
+- ![Dashboard Page](assets/dashboard.png)
+- ![Updated Dashboard Page](assets\Wadeadamdemo.png)
 
 
 
