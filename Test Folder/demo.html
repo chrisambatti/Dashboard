@@ -1,0 +1,210 @@
+<!-- last updated on 06-Feb-2026 at 2:47 pm -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="icon" href="assets/favicon.jpeg" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://kit.fontawesome.com" crossorigin="anonymous"></script>
+   <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-..."
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+</head>
+<body> 
+  <header class="header">
+    <img src="assets/2wadeadamlogo.jpeg" class="logo" alt="Logo" />
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </header>
+
+  <section class="filter-bar">
+    <select id="month">
+      <option value="">All Months</option>
+      <option value="1">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">Mar</option>
+      <option value="4">Apr</option>
+      <option value="5">May</option>
+      <option value="6">Jun</option>
+      <option value="7">Jul</option>
+      <option value="8">Aug</option>
+      <option value="9">Sep</option>
+      <option value="10">Oct</option>
+      <option value="11">Nov</option>
+      <option value="12">Dec</option>
+    </select>
+
+    <select id="year">
+      <option value="">All Years</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+    </select>
+
+    <button onclick="loadDashboard()">Apply</button>
+  </section>
+
+  <section class="dashboard-grid">
+<div class="left-column"> 
+  <div class="kpis">
+
+    <div class="kpi-card">
+      <div class="kpi-title">
+        <i class="fa-solid fa-money-bill-trend-up kpi-icon spend"></i>
+        Total Spend
+      </div>
+      <span id="totalSpend">—</span>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-title">
+        <i class="fa-solid fa-box-open kpi-icon orders"></i>
+        Total Orders
+      </div>
+      <span id="totalOrders">—</span>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-title">
+        <i class="fa-solid fa-building kpi-icon supplier"></i>
+        Top Supplier
+      </div>
+      <span id="topSupplier">—</span>
+    </div>
+
+  </div>
+
+  <div class="charts-left">
+    <div class="chart-card">
+      <canvas id="itemChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+    <div class="charts">
+      <div class="chart-card">
+        <canvas id="spendChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <canvas id="ordersChart"></canvas>
+      </div>
+    </div>
+
+    <div class="pipelines">
+      <div class="pipeline-card">
+        <table>
+          <thead>
+            <tr><th>Supplier</th><th></th><th>Spend</th></tr>
+          </thead>
+          <tbody id="spendPipeline"></tbody>
+        </table>
+      </div>
+
+      <div class="pipeline-card">
+        <table>
+          <thead>
+            <tr><th>Supplier</th><th></th><th>Orders</th></tr>
+          </thead>
+          <tbody id="orderPipeline"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    if(localStorage.getItem("loggedIn")!=="true") window.location.href="login.html";
+    function logout(){ localStorage.removeItem("loggedIn"); window.location.href="login.html"; }
+
+    let spendChart, ordersChart, itemChart;
+
+    async function loadDashboard(){
+      const month = document.getElementById("month").value;
+      const year  = document.getElementById("year").value;
+
+      const res = await fetch(`fetch.php?month=${month}&year=${year}`);
+      const data = await res.json();
+
+      totalSpend.innerText  = data.kpis.totalSpend.toLocaleString();
+      totalOrders.innerText = data.kpis.totalOrders.toLocaleString();
+      topSupplier.innerText = data.kpis.topSupplier || "—";
+
+      const labels  = data.top5.map(d=>d.name);
+      const spend   = data.top5.map(d=>d.total_value);
+      const orders  = data.top5.map(d=>d.total_orders);
+
+      spendChart?.destroy();
+      ordersChart?.destroy();
+      itemChart?.destroy();
+
+      spendChart = new Chart(document.getElementById("spendChart"), {
+        type: "doughnut",
+        data: { labels, datasets: [{ data: spend, backgroundColor:["rgba(28,78,162,0.9)","rgba(41,103,184,0.85)","rgba(56,123,204,0.8)","rgba(72,144,212,0.75)","rgba(92,162,222,0.7)","rgba(112,179,232,0.65)","rgba(132,197,242,0.6)","rgba(152,214,252,0.55)","rgba(172,230,255,0.5)","rgba(192,247,255,0.45)"] }] },
+        options: chartOptions(true)
+      });
+
+      ordersChart = new Chart(document.getElementById("ordersChart"), {
+        type: "bar",
+        data: { labels, datasets: [{ label:"Orders", data:orders, backgroundColor:["rgba(28,78,162,0.9)","rgba(41,103,184,0.85)","rgba(56,123,204,0.8)","rgba(72,144,212,0.75)","rgba(92,162,222,0.7)","rgba(112,179,232,0.65)","rgba(132,197,242,0.6)","rgba(152,214,252,0.55)","rgba(172,230,255,0.5)","rgba(192,247,255,0.45)"]
+, borderRadius:6 }] },
+        options: chartOptions(true,true)
+      });
+
+      renderPipeline("spendPipeline", data.top5, "total_value");
+      renderPipeline("orderPipeline", data.top5, "total_orders");
+
+      const kpiData = data.kpiChart || {
+        labels: ["% of Spherical Beeds","600MM DI Circular Medium Duty","20-40MM Single Size Aggregate","200 x 250MM SS316 Identification","DN250 Carbon Steel Seamless Pi","Crushed Sub Base","Granular Sub Base","Masonary Saw","260x200MM Flush Concrete Kerb","40-20MM Crushed Aggregate"],
+        values: [22500,22176,22000,19995,14388,10000,10000,6996,6370,5500]
+      };
+
+      itemChart = new Chart(document.getElementById("itemChart"), {
+        type: "bar",
+        data: {
+          labels: kpiData.labels,
+          datasets:[{
+            label:"Total Value",
+            data:kpiData.values,
+            // backgroundColor:"rgba(72,144,212,0.8)",
+            backgroundColor:["rgba(28,78,162,0.9)","rgba(41,103,184,0.85)","rgba(56,123,204,0.8)","rgba(72,144,212,0.75)","rgba(92,162,222,0.7)","rgba(112,179,232,0.65)","rgba(132,197,242,0.6)","rgba(152,214,252,0.55)","rgba(172,230,255,0.5)","rgba(192,247,255,0.45)"],
+            borderRadius:6
+          }]
+        },
+        options:{
+          responsive:true,
+          plugins:{ legend:{display:false}, title:{display:true, text:"Top 10 Items by Total Value"} },
+          scales:{ y:{ beginAtZero:true } }
+        }
+      });
+    }
+
+    function renderPipeline(containerId,data,key){
+      const container=document.getElementById(containerId);
+      container.innerHTML="";
+      const max=Math.max(...data.map(d=>d[key]));
+      data.forEach((d,i)=>{
+        const percent=Math.round((d[key]/max)*100);
+        const row=document.createElement("tr");
+        row.innerHTML=`<td class="supplier">${d.name}</td>
+                       <td><div class="pipe"><div class="pipe-fill"></div></div></td>
+                       <td class="value">${d[key].toLocaleString()}</td>`;
+        container.appendChild(row);
+        setTimeout(()=>{ row.querySelector(".pipe-fill").style.width=percent+"%"; }, 150+i*120);
+      });
+    }
+
+    function chartOptions(showLegend=true,yBeginZero=false){
+      return { responsive:true, maintainAspectRatio:false,
+               plugins:{ legend:{display:showLegend, position:"bottom"} }, };
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>
