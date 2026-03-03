@@ -45,7 +45,7 @@ wadeadamdb/
 
 - ![Login Page](assets/login.png) 
 - ![Dashboard Page](assets/dashboard.png)
-- ![Updated Dashboard Page](D:\xampp\htdocs\wadeadamdb\assets\Wadeadamdemo.png)
+
 
 
 
