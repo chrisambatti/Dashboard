@@ -1,3 +1,6 @@
+<!-- last updated on06-Feb-2026 at 7:41 am -->
+
+
 <?php
 header('Content-Type: application/json');
 
@@ -62,8 +65,3 @@ echo json_encode([
 ]);
 
 $conn->close();
-
-
-
-// Multiple data template USe if needed in future
-

@@ -1,3 +1,5 @@
+<!-- last updated on06-Feb-2026 at 7:41 am -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,127 +16,115 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #c0d8e9, #aecadb);
-    overflow: hidden;
-}
-.logo{
-    width: 100px;
-    margin-bottom: 20px;
-}
-
-#myVideo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1; 
 }
 
 .login-container {
-    background: white; 
+    background: white;
     padding: 40px 30px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    width: 360px;
-    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 350px;
     text-align: center;
-    backdrop-filter: blur(5px);
+    position: relative;
 }
 
 .login-container .logo {
     width: 120px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .login-container h2 {
     margin-bottom: 25px;
-    color: #1f2937;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    
+    color: #333;
 }
 
 .login-container input[type="text"],
 .login-container input[type="password"] {
     width: 100%;
-    padding: 12px 1px;
+    padding: 12px 10px;
     margin-bottom: 15px;
-    border: 1px solid #cfd8e3;
-    border-radius: 8px;
-    font-size: 14px;
-    text-align: center;
-    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
 .login-container input:focus {
-    border-color: #3b82f6;
+    border-color: #c0d8e9;
     outline: none;
-    box-shadow: 0 0 6px rgba(59,130,246,0.3);
+    box-shadow: 0 0 5px #c0d8e9;
 }
 
 .login-container button {
     width: 100%;
-    padding: 15px;
-    background: #3b82f6;
+    padding: 12px;
+    background: #c0d8e9;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.3s;
+    align-items: center;
 }
 
 .login-container button:hover {
-    background: #2563eb;
+    background: #a8cde3;
 }
 
 .login-container .error {
-    color: #ef4444;
+    color: red;
     margin-bottom: 10px;
     font-size: 14px;
 }
 
-.content {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-    color: #f1f1f1;
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
+.content {
+  position: fixed;
+  bottom: 0;
+ 
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
 #myBtn {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 80px;
-    padding: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px;
+  padding: 50px;
 
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
 
-    color: #fff;
-    font-size: 14px;
-    font-family: Helvetica, Arial, sans-serif;
-    cursor: pointer;
-    transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+
+  color: #fff;
+  font-size: 14px;
+  font-family:  Helvetica, Arial, sans-serif;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 #myBtn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.10);
 }
 
 #myBtn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
-
 
 </style>
 </head>
@@ -192,10 +182,6 @@ function myFunction() {
     btn.innerHTML = "Play";
   }
 }
-
-console.log("%cHey there, curious developer 😎\nOnly you and I know: 'The login button secretly talks to Click.'", 
-"color: #3b82f6; font-size: 14px; font-weight: bold;");
-
 </script>
 </body>
 </html>
